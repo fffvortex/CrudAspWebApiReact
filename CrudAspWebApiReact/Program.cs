@@ -1,4 +1,6 @@
+using ItemShop.Application.Services;
 using ItemShop.DataAccess;
+using ItemShop.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,9 @@ builder.Services.AddDbContext<ItemShopDbContext>(
     {
         options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(ItemShopDbContext)));
     });
+
+builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 var app = builder.Build();
 
